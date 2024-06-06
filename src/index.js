@@ -10,19 +10,23 @@ function showWeatherDetails(response) {
   humidityElement.innerHTML = response.data.temperature.humidity;
   let windSpeedElement = document.querySelector("#windspeed");
   windSpeedElement.innerHTML = response.data.wind.speed;
+  let iconImage= document.querySelector(".current-temperature-icon");
+  iconImage.innerHTML=`<img src="${response.data.condition.icon_url}"/>`;
 }
 
-function search(event) {
-  event.preventDefault();
-  let searchInputElement = document.querySelector("#search-input");
-  let city = searchInputElement.value;
+function search(city) {
+  
 
   let apiKey = "b2a5adcct04b33178913oc335f405433";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showWeatherDetails);
 }
-
+function handleSearchButton(event){
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+  search(searchInputElement.value);
+}
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
@@ -57,3 +61,4 @@ let currentDateELement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
+search("fochville");
