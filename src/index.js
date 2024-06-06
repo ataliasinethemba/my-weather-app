@@ -55,7 +55,7 @@ function formatDate(date) {
 }
 
 let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
+searchForm.addEventListener("submit", handleSearchButton);
 
 let currentDateELement = document.querySelector("#current-date");
 let currentDate = new Date();
