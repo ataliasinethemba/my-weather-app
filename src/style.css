@@ -92,9 +92,10 @@ main {
 .weather-forecast-icon{
     width: 30;
 }
-.weather-forecast{
+#forecast{
     margin-top: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
 }
 .min-temperature{
     opacity: 0.5;

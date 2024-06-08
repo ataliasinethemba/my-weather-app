@@ -49,11 +49,32 @@ function formatDate(date) {
     "Friday",
     "Saturday"
   ];
+  
 
   let formattedDay = days[day];
   return `${formattedDay} ${hours}:${minutes}`;
 }
+function displayForecast(){
+  
+  let days=["Mon","Tue","Wed","Thur","Friday"];
+  let forecastHTML="";
+  days.forEach(function(day){
+    forecastHTML=forecastHTML+`<div class="weather-forecast-day">
+      <div class="weather-forecast-date">${day}</div>
+      <div class="weather-icon"><img
+        src="http://openweathermap.org/img/wn/50d@2x.png"
+        width="40"
+      /></div>
+      <div class="weather-forecast-temperature">
+        <strong class="max-temperature"> 29&deg; </strong>
+        <span class="min-temperature"> 20&deg; </span>
+      </div>
+    </div>`
+  });
 
+  let weatherforecast = document.querySelector("#forecast");
+  weatherforecast.innerHTML=forecastHTML;
+  }
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSearchButton);
 
@@ -62,3 +83,4 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 search("fochville");
+displayForecast();
