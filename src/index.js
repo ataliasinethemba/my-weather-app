@@ -12,6 +12,8 @@ function showWeatherDetails(response) {
   windSpeedElement.innerHTML = response.data.wind.speed;
   let iconImage= document.querySelector(".current-temperature-icon");
   iconImage.innerHTML=`<img src="${response.data.condition.icon_url}"/>`;
+
+  getForecast(response.data.city);
 }
 
 function search(city) {
@@ -54,27 +56,46 @@ function formatDate(date) {
   let formattedDay = days[day];
   return `${formattedDay} ${hours}:${minutes}`;
 }
-function displayForecast(){
+function displayForecast(response){
   
-  let days=["Mon","Tue","Wed","Thur","Friday"];
   let forecastHTML="";
-  days.forEach(function(day){
+  response.data.daily.forEach(function(day,index){
+    if(index<5){
     forecastHTML=forecastHTML+`<div class="weather-forecast-day">
-      <div class="weather-forecast-date">${day}</div>
-      <div class="weather-icon"><img
-        src="http://openweathermap.org/img/wn/50d@2x.png"
+      <div class="weather-forecast-date">${formatDay(day.time)}</div>
+      <div class="weather-forecast-icon"><img
+        src="${day.condition.icon_url}"
         width="40"
       /></div>
       <div class="weather-forecast-temperature">
-        <strong class="max-temperature"> 29&deg; </strong>
-        <span class="min-temperature"> 20&deg; </span>
+        <span><strong class="max-temperature">  ${Math.round(day.temperature.maximum) }°</strong></span>
+        <span class="min-temperature">  ${Math.round(day.temperature.minimum) }° </span>
       </div>
-    </div>`
+    </div>`;}
   });
 
-  let weatherforecast = document.querySelector("#forecast");
-  weatherforecast.innerHTML=forecastHTML;
+    let weatherforecast = document.querySelector("#forecast");
+    weatherforecast.innerHTML=forecastHTML;
   }
+
+function getForecast(city){
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;  
+  axios.get(apiUrl).then(displayForecast);
+}
+function formatDay(timestamp){
+  let date = new Date(timestamp*1000);
+  let days=[
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thur",
+    "Fri",
+    "Sat"
+  ];
+  return days[date.getDay()];
+}
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSearchButton);
 
@@ -83,4 +104,3 @@ let currentDate = new Date();
 
 currentDateELement.innerHTML = formatDate(currentDate);
 search("fochville");
-displayForecast();

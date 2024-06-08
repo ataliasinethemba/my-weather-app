@@ -41,6 +41,9 @@ header {
     line-height: 1;
     border-radius: 5px;
 }
+.search-button:hover{
+    cursor: pointer;
+    background-color: #c8b9ec;}
 
 main {
     padding: 30px 0;
@@ -90,21 +93,33 @@ main {
     top: -38px;
 }
 .weather-forecast-icon{
-    width: 30;
+    width: 80px;
+    height: 40px;
+    text-align: center;
 }
+.weather-forecast-date{
+    text-align: center;
+}
+.weather-forecast-temperature{
+    text-align: center;
+}
+
 #forecast{
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
 }
-.min-temperature{
-    opacity: 0.5;
-    font-size: 14px;
-    color: greys;
+
+.min-temperature {
+    opacity: 0.7;
+    font-size: 16px;
+    color: #f65282;
 }
 .max-temperature{
-    font-size: 15;
+    font-size: 18;
+    color: #f65282;
 }
+
 
 footer {
     border-top: 1px solid #f9f7fe;
